@@ -42,6 +42,11 @@ g.task('serve', function() {
     });
 });
 
+g.task('static', () => {
+    g.src('src/assets/**')
+        .pipe(g.dest('build/assets/'))
+})
+
 g.task('ts', () => {
     g.src('src/**/*.ts')
         .pipe(sourcemaps.init())
@@ -56,6 +61,6 @@ g.watch('src/**', (...args) => {
     console.log("============ args ");
     console.log(args);
     console.log("++++++++++++ args ");
-    run(['styl', 'template', 'ts'], 'reload');
+    run(['styl', 'template', 'ts'], 'static', 'reload');
 })
 
