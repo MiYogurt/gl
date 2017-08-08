@@ -6,6 +6,7 @@ import * as BS from 'browser-sync'
 import * as sourcemaps from 'gulp-sourcemaps'
 import * as ts from 'gulp-typescript'
 import * as run from 'run-sequence'
+import * as combiner from 'stream-combiner2';
 
 const browserSync = BS.create()
 const tsProject = ts.createProject('tsconfig.json')
@@ -26,12 +27,16 @@ g.task('clean', () => {
 })
 
 g.task('styl', () => {
-    g.src(['src/**/*.styl', '!src/**/_*.styl'])
-        .pipe(sourcemaps.init())
-        .pipe(stylus())
-        .pipe(sourcemaps.write('.'))
-        .pipe(browserSync.stream())
-        .pipe(g.dest('build'))
+    const combined = combiner.obj([
+        g.src(['src/**/*.styl', '!src/**/_*.styl']),
+        sourcemaps.init(),
+        stylus(),
+        sourcemaps.write('.'),
+        browserSync.stream(),
+        g.dest('build')
+    ])
+    combined.on('error', console.error.bind(console))
+    return combined;
 })
 
 g.task('serve', function() {

@@ -24,6 +24,7 @@
     "gulp-stylus": "^2.6.0",
     "gulp-typescript": "^3.2.1",
     "run-sequence": "^2.1.0",
+    "stream-combiner2": "^1.1.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2"
   }
