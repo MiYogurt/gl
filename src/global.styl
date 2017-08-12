@@ -1,7 +1,29 @@
 @import './components/_helper.styl'
 
 *
+    padding: 0
+    margin: 0
     box-sizing: border-box
+
+body
+    background: #f8f8f8
+    font-size: 10px
+
+a
+    text-decoration: none
+    color: titleColor
+    &:hover
+        color: aHoverColor
+
+.page-container
+    padding-left: 20rem
+
+.label
+    background: mainColor
+    color: #fff
+    font-size: .5rem
+    padding: 3px 6px
+    border-radius: 3px
 
 .clearfix
     display: table
@@ -10,6 +32,8 @@
     &:after
         content: ''
 
+li
+    list-style: none
 
 .pull-right
     float: right
@@ -25,11 +49,15 @@
     color: #fff
     text-decoration: none
     display: inline-block
-    padding: 5px 25px;
+    padding: 10px 45px
     transition: all .5s
+    letter-spacing: 2px
+    &.small
+        padding: 5px 25px
     &.yes
     &:hover
         background: mainColor
+        color: #fff
 
 body.gradient
     background: linear-gradient(to bottom right, #ffffff, #d9d4fb)
