@@ -1,0 +1,91 @@
+@import './components/_helper.styl'
+
+*
+    box-sizing: border-box
+
+.clearfix
+    display: table
+    overflow: hidden
+    clear: both
+    &:after
+        content: ''
+
+
+.pull-right
+    float: right
+
+.pull-left
+    float: left
+
+.text-center
+    text-align center
+
+.btn
+    background: #D1CDF5
+    color: #fff
+    text-decoration: none
+    display: inline-block
+    padding: 5px 25px;
+    transition: all .5s
+    &.yes
+    &:hover
+        background: mainColor
+
+body.gradient
+    background: linear-gradient(to bottom right, #ffffff, #d9d4fb)
+    min-height: 100vh
+    display: flex
+    justify-content: center
+    &.no-center
+        justify-content: left
+        flex-direction: column
+    &.align-center
+        align-items: center
+
+body.pt10
+    padding-top: 10%
+
+form
+    margin-top: 2em
+    input
+        width: 24em
+        height: 3em
+        line-height: 3em
+        padding: 5px 15px
+        font-size: 14px
+        font-weight: 300
+        outline: none
+        border: 1px solid #fff
+        letter-spacing: 2px
+        &.block
+            display: block
+            margin: 0
+            margin-top: 1em
+        &:focus
+            border: 1px solid #a5a5a5
+
+    .links
+        margin: 1em 0 0
+        a
+            font-size: 12px
+            color: titleColor
+            text-decoration: none
+
+            &:hover
+                color: aHoverColor
+    /.block ~ .submit-btn
+        margin-top: 1em
+
+    .submit-btn
+        display: block
+        height: 2.5em
+        background: #A69EF5
+        letter-spacing: 4px
+        color: #fff
+        line-height: 2.5em
+        text-decoration: none
+        text-align: center
+        transition: all .3s
+        &:hover
+            background: mainColor
+

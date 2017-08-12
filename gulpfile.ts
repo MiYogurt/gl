@@ -7,19 +7,23 @@ import * as sourcemaps from 'gulp-sourcemaps'
 import * as ts from 'gulp-typescript'
 import * as run from 'run-sequence'
 import * as combiner from 'stream-combiner2';
+import * as gulpIgnore from 'gulp-ignore'
 
 const browserSync = BS.create()
-const tsProject = ts.createProject('tsconfig.json')
 
 g.task('log', () => {
     console.log("======log======")
 })
 
 g.task('template', () => {
-    g.src(['src/**/*.html', '!src/**/_*.html'])
-        .pipe(htmlImport('src/'))
-        .pipe(g.dest('build'))
-        .pipe(browserSync.stream())
+    const combined = combiner.obj([
+        g.src(['src/**/*.html', '!src/**/_*.html']),
+        htmlImport('src/'),
+        browserSync.stream(),
+        g.dest('build')
+    ])
+    combined.on('error', console.error.bind(console))
+    return combined;
 })
 
 g.task('clean', () => {
@@ -45,6 +49,14 @@ g.task('serve', function() {
             baseDir: "build"
         }
     });
+
+    g.watch('src/**', (...args) => {
+        console.log("============ args ");
+        console.log(args);
+        console.log("++++++++++++ args ");
+        run(['styl', 'template'],'ts', 'static', 'reload');
+    })
+
 });
 
 g.task('static', () => {
@@ -53,6 +65,7 @@ g.task('static', () => {
 })
 
 g.task('ts', () => {
+    const tsProject = ts.createProject('tsconfig.json')
     g.src('src/**/*.ts')
         .pipe(sourcemaps.init())
         .pipe(tsProject())
@@ -61,11 +74,3 @@ g.task('ts', () => {
 })
 
 g.task('reload', browserSync.reload)
-
-g.watch('src/**', (...args) => {
-    console.log("============ args ");
-    console.log(args);
-    console.log("++++++++++++ args ");
-    run(['styl', 'template', 'ts'], 'static', 'reload');
-})
-
